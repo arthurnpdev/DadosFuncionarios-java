@@ -1,0 +1,36 @@
+package Dados;
+
+public class Funcionario {
+	int id;
+	String name;
+	Double salary;
+	
+	public Funcionario(int id, String name, double salary) {
+		this.id = id;
+		this.name = name;
+		this.salary = salary;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public Double getSalary() {
+		return salary;
+	}
+	
+	public void increaseSalary(double percent) {
+        if (percent > 0) {
+            salary += salary * (percent / 100);
+        }
+	}
+	
+	 @Override
+	    public String toString() {
+	        return id + ", " + name + ", " + String.format("%.2f", salary);
+	    }
+}
