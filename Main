@@ -1,84 +1,81 @@
-package Dados;
+package arthurpdev.sistemaFuncionarios;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Funcionario> funcionarios = new ArrayList<>();
 
-	public static void main(String[] args) {
-	Scanner scanner = new Scanner(System.in);
-	
-	ArrayList<Funcionario> funcionarios = new ArrayList<>();
-	
-	System.out.print("Quantos empregados serão cadastrados? ");
-	int N = scanner.nextInt();
-	scanner.nextLine();
-	
-	for (int i = 0; i < N; i++) {
-		System.out.println("Empregado #" + (i + 1) + ":");
-		System.out.print("Nome: ");
-		String name = scanner.nextLine();
-		
-		System.out.print("ID: ");
-		int id = scanner.nextInt();
-		scanner.nextLine();
-		
-		boolean repeatedId = false;
-		for (Funcionario f : funcionarios) {
-			if (f.getId() == id) {
-				repeatedId = true;
-				break;
-			}
-		}
-		
-		if (repeatedId) {
-			System.out.println("ID já cadastrado! tente novamente.");
-			i--;
-		} else {
-		
-		System.out.print("Salário: ");
-		Double salary = scanner.nextDouble();
-		scanner.nextLine();
-		
-		funcionarios.add(new Funcionario(id, name, salary));
-		}
-	}
-		
-		System.out.println("Deseja alterar o salário de algum empregado? (s/n)");
-		String op = scanner.nextLine();
-		if(op.equalsIgnoreCase("S")) {
-	
-		System.out.print("Informe o Id do empregado que terá seu salário modificado:");
-		int idIncrease = scanner.nextInt();
-		System.out.print("Informe o percentual: ");
-		Double percent = scanner.nextDouble();
-		
-		 Funcionario funcionarioAumento = null;
-	        for (Funcionario f : funcionarios) {
-	            if (f.getId() == idIncrease) {
-	                funcionarioAumento = f;
-	                break;
-	            }
-	        }
-	        
-	        if(funcionarioAumento != null) {
-	        	funcionarioAumento.increaseSalary(percent);
-	        }else {
-	        	System.out.println("Id não encontrado. Operação abortada.");
-	        }
-	        
-	        System.out.println("Lista de empregados:");
-	        for (Funcionario f : funcionarios) {
-	        	System.out.println(f);
-	        }
-	        
-	        scanner.close();
-	}else {
-		System.out.println("Lista de empregados:");
+    System.out.println("Quantos funcionários serão cadastrados?");
+    int N = scanner.nextInt();
+    scanner.nextLine();
+
+    for (int i = 0; i < N; i ++) {
+        System.out.println("Empregado #" + (i + 1) + ":");
+
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine();
+
+        System.out.print("ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean idRepetido = false;
         for (Funcionario f : funcionarios) {
-        	System.out.println(f);
-        	
-        	scanner.close();
+            if (f.getId() == id) {
+                idRepetido = true;
+                break;
+            }
         }
-	}
-	}
+
+        if (idRepetido) {
+            System.out.println("ID já cadastrado! tente novamente.");
+            i--;
+        } else {
+            System.out.print("Salário: ");
+            double salario = scanner.nextDouble();
+            scanner.nextLine();
+
+            funcionarios.add(new Funcionario(id, nome, salario));
+        }
+        }
+
+        System.out.println("Deseja alterar o salário de algum empregado? (s/n)");
+        String op = scanner.nextLine();
+
+        if (op.equalsIgnoreCase("s")) {
+            System.out.print("Informe o Id do empregado que terá seu salário modificado:");
+            int aumentar = scanner.nextInt();
+            System.out.print("informe o percentual: ");
+            double percent = scanner.nextDouble();
+
+            Funcionario funcionarioAumento = null;
+            for (Funcionario f : funcionarios) {
+                if (f.getId() == aumentar) {
+                    funcionarioAumento = f;
+                    break;
+                }
+            }
+
+            if (funcionarioAumento != null) {
+                funcionarioAumento.aumentarSalario(percent);
+            } else {
+                System.out.println("Id não encontrado. Operação abortada.");
+            }
+
+            System.out.println("lista de empregados: ");
+            for (Funcionario f : funcionarios) {
+                System.out.println(f);
+
+                scanner.close();
+            }
+        } else if (op.equalsIgnoreCase("n")) {
+            System.out.println("lista de empregados: ");
+            for (Funcionario f : funcionarios) {
+                System.out.println(f);
+            }
+        }
+
+    }
 }
